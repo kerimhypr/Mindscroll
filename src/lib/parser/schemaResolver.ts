@@ -2,6 +2,7 @@
  * A utility to search through nested JSON structures and extract arrays of matching objects.
  * This makes the parser schema-agnostic to handle changes in TikTok's JSON structure.
  */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 // Safari and cross-browser date normalization helper
 function normalizeDateString(clean: string): string {
@@ -30,13 +31,6 @@ function isDateString(val: any): boolean {
   const normalized = normalizeDateString(strVal);
   const timestamp = Date.parse(normalized);
   return !isNaN(timestamp);
-}
-
-// Helper to check if a string is a TikTok URL
-function isTikTokUrl(val: any): boolean {
-  if (val === undefined || val === null) return false;
-  const str = String(val).trim();
-  return str.includes('tiktok.com') || str.includes('tiktokv.com');
 }
 
 /**

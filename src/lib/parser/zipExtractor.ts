@@ -101,7 +101,7 @@ export async function extractTikTokZip(file: File): Promise<ParsedData> {
   }
 
   // Helper to find file content by pattern or keyword group
-  const readJsonFile = async (patterns: RegExp[], keywords: string[][]): Promise<any | null> => {
+  const readJsonFile = async (patterns: RegExp[], keywords: string[][]): Promise<unknown | null> => {
     const matchedPath = files.find((path) => {
       const filename = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
       if (!filename.endsWith('.json')) return false;

@@ -29,13 +29,6 @@ function isValidDate(d: Date): boolean {
   return d.getTime() > MIN_VALID_TIMESTAMP;
 }
 
-// Format a date string safely, returning null if invalid/epoch
-function safeDateStr(dateStr: string): string | null {
-  const d = parseDate(dateStr);
-  if (!isValidDate(d)) return null;
-  return dateStr;
-}
-
 // Check if a link is a real TikTok video link (not a search URL, not bare domain)
 function isVideoLink(link: string): boolean {
   if (!link || typeof link !== 'string') return false;
@@ -122,7 +115,6 @@ export function runAnalysis(data: ParsedData): AnalysisResult {
   const sortedComments = [...validComments].sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
   const sortedLikes = [...validLikes].sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
   const sortedFavorites = [...validFavorites].sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
-  const sortedShares = [...validShares].sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
   const sortedReposts = [...validReposts].sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
 
   // 1. Time Cell
@@ -424,7 +416,6 @@ export function runAnalysis(data: ParsedData): AnalysisResult {
   }
   // Sort creators: real usernames first, raw UIDs last
   let secretFavCreator: string | null = null;
-  let maxLikedCreatorCount = 0;
   const realCreators: [string, number][] = [];
   const uidCreators: [string, number][] = [];
   for (const creator in likedCreators) {
@@ -564,7 +555,6 @@ export function runAnalysis(data: ParsedData): AnalysisResult {
   // 27. Holiday Escape
   // Check typical public holidays: 01-01 (New Year), 05-01 (Labor Day), 10-29 (Republic Day), etc.
   const publicHolidays = ['01-01', '04-23', '05-01', '05-19', '07-15', '08-30', '10-29'];
-  let holidayWatchCount = 0;
   let holidayDaysCount = 0;
   const watchedDaysMap: Record<string, number> = {};
 
