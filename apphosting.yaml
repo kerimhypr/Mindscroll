@@ -1,0 +1,18 @@
+runConfig:
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
+
+env:
+  - variable: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+    value: pk_test_51TeIGgHqDSFa8C9cmG8mTdO044ElRQTuS4jePeUBm7Y1U6oLqC1OqMs7tV1f4vqxjtgasskRZ9vhcuRdxR4Hd0Qa00fhPdgbD2
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: STRIPE_SECRET_KEY
+    secret: STRIPE_SECRET_KEY
+    availability:
+      - RUNTIME
